@@ -1,6 +1,7 @@
 import { Box } from "@strapi/design-system";
 import { StrictMode } from "react";
 import { EditorRef, EmailEditor } from "react-email-editor";
+import { useIntl } from "react-intl";
 import { EmailConfig } from "../../types";
 
 interface DesignerHTMLEditorProps {
@@ -16,6 +17,8 @@ const DesignerHTMLEditor = ({
   serverConfigLoaded,
   onLoad,
 }: DesignerHTMLEditorProps) => {
+  const { locale } = useIntl();
+
   return (
     <Box
       style={{
@@ -25,7 +28,12 @@ const DesignerHTMLEditor = ({
     >
       {serverConfigLoaded && (
         <StrictMode>
-          <EmailEditor options={editorOptions} minHeight="100%" ref={emailEditorRef} onLoad={onLoad} />
+          <EmailEditor
+            options={{ ...editorOptions, locale }}
+            minHeight="100%"
+            ref={emailEditorRef}
+            onLoad={onLoad}
+          />
         </StrictMode>
       )}
     </Box>
